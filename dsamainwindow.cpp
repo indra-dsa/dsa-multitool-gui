@@ -2,8 +2,9 @@
 #include "ui_dsamainwindow.h"
 #include <QStatusBar>
 #include <QMessageBox>
-
-QString versionNumber = "V0.1";
+#include <QDebug>
+#include <QPixmap>
+#include <QLabel>
 
 DSAMainWindow::DSAMainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -11,6 +12,7 @@ DSAMainWindow::DSAMainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->statusbar->showMessage("Ready.");
+
 }
 
 DSAMainWindow::~DSAMainWindow()
@@ -27,5 +29,5 @@ void DSAMainWindow::on_actionQuit_triggered()
 void DSAMainWindow::on_actionAbout_triggered()
 {
     QMessageBox aboutMessage;
-    aboutMessage.information(this,"About","Double Shot Audio Multitool V" + versionNumber);
+    aboutMessage.information(this,"About","Double Shot Audio Multitool V0.1 (Alpha)\nProgrammed by Made Indrayana using Qt 5");
 }
