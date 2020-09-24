@@ -30,3 +30,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     rsc.qrc
+
+RC_ICONS = Icon-Black-Win.ico
+ICON = Icon-Black-macOS.icns

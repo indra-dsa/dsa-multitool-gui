@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="rsc.qrc">
-    <normaloff>:/img/img/Icon.png</normaloff>:/img/img/Icon.png</iconset>
+    <normaloff>:/resources/images/Icon-Black.png</normaloff>:/resources/images/Icon-Black.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
@@ -138,7 +138,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="rsc.qrc">:/img/img/Logo.png</pixmap>
+     <pixmap resource="rsc.qrc">:/resources/images/Logo-Black.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -151,7 +151,7 @@
      <x>0</x>
      <y>0</y>
      <width>911</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
