@@ -17,11 +17,12 @@ public:
 
 private slots:
     void on_actionQuit_triggered();
-
     void on_actionAbout_triggered();
+    void getFfmpeg();
+
+    void on_browseFfmpeg_clicked();
 
 private:
     Ui::DSAMainWindow *ui;
-    QString versionNumber;
 };
 #endif // DSAMAINWINDOW_H
