@@ -21,15 +21,15 @@ FORMS += \
 TRANSLATIONS += \
     DSA-Multitool-GUI_en_US.ts
 
+RESOURCES += \
+    rsc.qrc
+
 TARGET = "DSA Multitool"
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-RESOURCES += \
-    rsc.qrc
 
 RC_ICONS = Icon-Black-Win.ico
 ICON = Icon-Black-macOS.icns

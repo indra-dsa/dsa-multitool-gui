@@ -1,13 +1,8 @@
 #include "dsamainwindow.h"
 #include "ui_dsamainwindow.h"
-#include <QStatusBar>
-#include <QMessageBox>
-#include <QDebug>
-#include <QPixmap>
-#include <QLabel>
-#include <QDir>
-#include <QFileDialog>
-#include <QLineEdit>
+
+
+// Standard Functions ------------------------------------------------------------------------------------
 
 DSAMainWindow::DSAMainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -16,13 +11,20 @@ DSAMainWindow::DSAMainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->statusbar->showMessage("Ready.");
 
+    // initialize values for QSettings
+    QCoreApplication::setOrganizationName("Double Shot Audio");
+    QCoreApplication::setOrganizationDomain("doubleshot-audio.com");
+    QCoreApplication::setApplicationName("Multitool");
+
+    QSettings settings;
+    getSettings();
+
 }
 
 DSAMainWindow::~DSAMainWindow()
 {
     delete ui;
 }
-
 
 void DSAMainWindow::on_actionQuit_triggered()
 {
@@ -35,16 +37,33 @@ void DSAMainWindow::on_actionAbout_triggered()
     aboutMessage.information(this,"About","Double Shot Audio Multitool V0.1 (Alpha)\nProgrammed by Made Indrayana using Qt 5");
 }
 
-void DSAMainWindow::getFfmpeg()
+// Main Functions ------------------------------------------------------------------------------------
+
+void DSAMainWindow::getSettings()
 {
-    QString fileName = nullptr;
-    fileName = QFileDialog::getOpenFileName(this,
-        tr("Open Image"), "/home", tr("Image Files (*.png *.jpg *.bmp)"));
-    ui->pathFfmpeg->setPlaceholderText("this should be ffmpeg path");
-    ui->pathFfmpeg->setText(fileName);
+    if(settings.value("ffmpegPath").toString() != nullptr)
+    {
+        ui->pathFfmpeg->setText(settings.value("ffmpegPath").toString());
+
+    }
+    else
+    {
+        return;
+    }
 }
 
 void DSAMainWindow::on_browseFfmpeg_clicked()
 {
-    getFfmpeg();
+    QString fileName = nullptr;
+
+    fileName = QFileDialog::getOpenFileName(this,
+        tr("Locate FFmpeg Binary Build"), QDir::homePath());
+    ui->pathFfmpeg->setText(fileName);
+    settings.setValue("ffmpegPath", fileName);
+}
+
+void DSAMainWindow::on_actionffmpeg_start_triggered()
+{
+    QString file = ui->pathFfmpeg->text();
+    QProcess::startDetached(file);
 }

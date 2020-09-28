@@ -137,7 +137,7 @@
           <item>
            <widget class="QCheckBox" name="checkBox">
             <property name="text">
-             <string>Resize</string>
+             <string>Resize Video</string>
             </property>
            </widget>
           </item>
@@ -251,7 +251,14 @@
     <addaction name="actionAbout"/>
     <addaction name="actionQuit"/>
    </widget>
+   <widget class="QMenu" name="menuDebug">
+    <property name="title">
+     <string>Debug</string>
+    </property>
+    <addaction name="actionffmpeg_start"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuDebug"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionAbout">
@@ -262,6 +269,11 @@
   <action name="actionQuit">
    <property name="text">
     <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionffmpeg_start">
+   <property name="text">
+    <string>ffmpeg start</string>
    </property>
   </action>
  </widget>
