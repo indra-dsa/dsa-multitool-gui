@@ -12,9 +12,7 @@ DSAMainWindow::DSAMainWindow(QWidget *parent)
     ui->statusbar->showMessage("Ready.");
 
     // initialize values for QSettings
-    QCoreApplication::setOrganizationName("Double Shot Audio");
-    QCoreApplication::setOrganizationDomain("doubleshot-audio.com");
-    QCoreApplication::setApplicationName("Multitool");
+
 
     QSettings settings;
     getSettings();
@@ -60,10 +58,31 @@ void DSAMainWindow::on_browseFfmpeg_clicked()
         tr("Locate FFmpeg Binary Build"), QDir::homePath());
     ui->pathFfmpeg->setText(fileName);
     settings.setValue("ffmpegPath", fileName);
+    settings.sync();
 }
 
 void DSAMainWindow::on_actionffmpeg_start_triggered()
 {
     QString file = ui->pathFfmpeg->text();
-    QProcess::startDetached(file);
+
+    QStringList params;
+    QProcess ffmpeg;
+
+    ffmpeg.setProcessChannelMode(QProcess::ForwardedChannels);
+    ffmpeg.startDetached(file,params);
+    ffmpeg.waitForFinished();
+    QString output = ffmpeg.readAll();
+    ui->label_debug->setText(output);
+}
+
+void DSAMainWindow::on_pathFfmpeg_textChanged(const QString &arg1)
+{
+    settings.setValue("ffmpegPath", arg1);
+    settings.sync();
+    qInfo() << "Updated path to: " << settings.value("ffmpegPath").toString();
+}
+
+void DSAMainWindow::on_actionQSettings_status_triggered()
+{
+    qInfo() << settings.status();
 }

@@ -30,7 +30,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <property name="spacing">
-         <number>-1</number>
+         <number>6</number>
         </property>
         <item>
          <widget class="QLabel" name="label_3">
@@ -88,7 +88,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab">
        <property name="enabled">
@@ -231,6 +231,24 @@
         <string>Audio Extractor</string>
        </attribute>
       </widget>
+      <widget class="QWidget" name="tab_5">
+       <attribute name="title">
+        <string>Console Output</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_debug">
+            <property name="text">
+             <string>Hello World!</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -241,7 +259,7 @@
      <x>0</x>
      <y>0</y>
      <width>845</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -256,6 +274,7 @@
      <string>Debug</string>
     </property>
     <addaction name="actionffmpeg_start"/>
+    <addaction name="actionQSettings_status"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuDebug"/>
@@ -274,6 +293,11 @@
   <action name="actionffmpeg_start">
    <property name="text">
     <string>ffmpeg start</string>
+   </property>
+  </action>
+  <action name="actionQSettings_status">
+   <property name="text">
+    <string>QSettings status</string>
    </property>
   </action>
  </widget>
