@@ -70,19 +70,26 @@ void DSAMainWindow::on_actionffmpeg_start_triggered()
     QStringList params;
     QProcess p;
 
+    connect(&p,SIGNAL(readyReadStandardOutput()),this,SLOT(readOutput()));
+
 
     p.setProcessChannelMode(QProcess::MergedChannels);
     p.setNativeArguments(ui->lineEdit_params->text()); // VERY IMPORTANT FOR WINDOWS!!!!!
+
+
     p.start(file,params);
+
     QString output;
-    if (p.waitForStarted(-1)) {
-        while(p.waitForReadyRead(-1)) {
+    if (p.waitForStarted(-1))
+    {
+        while(p.waitForReadyRead(-1))
+        {
             output += p.readAll();
+            ui->label_debug->setText(output);
         }
     }
-    p.waitForFinished();
 
-    ui->label_debug->setText(output);
+    p.waitForFinished();
 
 }
 
@@ -96,4 +103,10 @@ void DSAMainWindow::on_pathFfmpeg_textChanged(const QString &arg1)
 void DSAMainWindow::on_actionQSettings_status_triggered()
 {
     qInfo() << settings.status();
+}
+
+void DSAMainWindow::readOutput()
+{
+qDebug() << p.readAll();
+
 }

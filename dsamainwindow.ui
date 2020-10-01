@@ -31,6 +31,9 @@
        <layout class="QGridLayout" name="gridLayout_6">
         <item row="1" column="2">
          <widget class="QLineEdit" name="lineEdit_params">
+          <property name="text">
+           <string>-i &quot;C:\Users\info\Desktop\ffmpeg test\01 Force To Mono H264 MASTER.mov&quot; -bf 0 -g 1 &quot;C:\Users\info\Desktop\ffmpeg test\01 Force To Mono H264 MASTER-N.mov&quot;</string>
+          </property>
           <property name="placeholderText">
            <string>type your debug ffmpeg params</string>
           </property>

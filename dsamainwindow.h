@@ -18,6 +18,7 @@ public:
     ~DSAMainWindow();
     QSettings settings;
     void getSettings();
+    QProcess p;
 
 private slots:
     void on_actionQuit_triggered();
@@ -26,6 +27,7 @@ private slots:
     void on_actionffmpeg_start_triggered();
     void on_pathFfmpeg_textChanged(const QString &arg1);
     void on_actionQSettings_status_triggered();
+    void readOutput();
 
 
 private:
