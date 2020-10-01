@@ -70,12 +70,16 @@ void DSAMainWindow::on_actionffmpeg_start_triggered()
     QStringList params;
     QProcess p;
 
-    connect(&p,SIGNAL(readyReadStandardOutput()),this,SLOT(readOutput()));
-
-
     p.setProcessChannelMode(QProcess::MergedChannels);
-    p.setNativeArguments(ui->lineEdit_params->text()); // VERY IMPORTANT FOR WINDOWS!!!!!
 
+#ifdef Q_OS_OSX
+    params << "-i";
+    params << ui->lineEdit_testFile->text();
+#endif
+
+#ifdef Q_OS_WIN
+    p.setNativeArguments(ui->lineEdit_params->text()); // VERY IMPORTANT FOR WINDOWS!!!!!
+#endif
 
     p.start(file,params);
 
@@ -105,8 +109,11 @@ void DSAMainWindow::on_actionQSettings_status_triggered()
     qInfo() << settings.status();
 }
 
-void DSAMainWindow::readOutput()
+void DSAMainWindow::on_pushButton_2_clicked()
 {
-qDebug() << p.readAll();
+    QString fileName = nullptr;
 
+    fileName = QFileDialog::getOpenFileName(this,
+        tr("Open Video File"), QDir::homePath());
+    ui->lineEdit_testFile->setText(fileName);
 }

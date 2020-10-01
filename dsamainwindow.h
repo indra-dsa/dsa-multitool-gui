@@ -27,8 +27,9 @@ private slots:
     void on_actionffmpeg_start_triggered();
     void on_pathFfmpeg_textChanged(const QString &arg1);
     void on_actionQSettings_status_triggered();
-    void readOutput();
 
+
+    void on_pushButton_2_clicked();
 
 private:
     Ui::DSAMainWindow *ui;
