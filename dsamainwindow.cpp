@@ -1,5 +1,7 @@
 #include "dsamainwindow.h"
 #include "ui_dsamainwindow.h"
+#include <QMessageBox>
+#include <QFileDialog>
 
 
 // Standard Functions ------------------------------------------------------------------------------------
@@ -66,13 +68,22 @@ void DSAMainWindow::on_actionffmpeg_start_triggered()
     QString file = ui->pathFfmpeg->text();
 
     QStringList params;
-    QProcess ffmpeg;
+    QProcess p;
 
-    ffmpeg.setProcessChannelMode(QProcess::ForwardedChannels);
-    ffmpeg.startDetached(file,params);
-    ffmpeg.waitForFinished();
-    QString output = ffmpeg.readAll();
+
+    p.setProcessChannelMode(QProcess::MergedChannels);
+    p.setNativeArguments(ui->lineEdit_params->text()); // VERY IMPORTANT FOR WINDOWS!!!!!
+    p.start(file,params);
+    QString output;
+    if (p.waitForStarted(-1)) {
+        while(p.waitForReadyRead(-1)) {
+            output += p.readAll();
+        }
+    }
+    p.waitForFinished();
+
     ui->label_debug->setText(output);
+
 }
 
 void DSAMainWindow::on_pathFfmpeg_textChanged(const QString &arg1)

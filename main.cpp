@@ -1,6 +1,5 @@
-#include "dsamainwindow.h"
-
 #include <QApplication>
+#include "dsamainwindow.h"
 
 int main(int argc, char *argv[])
 {

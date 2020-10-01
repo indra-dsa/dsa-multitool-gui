@@ -1,17 +1,9 @@
 #ifndef DSAMAINWINDOW_H
 #define DSAMAINWINDOW_H
 
+#include <QtCore/QtCore>
 #include <QMainWindow>
-#include <QStatusBar>
-#include <QMessageBox>
-#include <QDebug>
-#include <QPixmap>
-#include <QLabel>
-#include <QDir>
-#include <QFileDialog>
-#include <QLineEdit>
-#include <QProcess>
-#include <QSettings>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class DSAMainWindow; }
@@ -26,17 +18,15 @@ public:
     ~DSAMainWindow();
     QSettings settings;
     void getSettings();
-    void readOutput();
 
 private slots:
     void on_actionQuit_triggered();
     void on_actionAbout_triggered();
     void on_browseFfmpeg_clicked();
     void on_actionffmpeg_start_triggered();
-
     void on_pathFfmpeg_textChanged(const QString &arg1);
-
     void on_actionQSettings_status_triggered();
+
 
 private:
     Ui::DSAMainWindow *ui;

@@ -26,20 +26,41 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <property name="spacing">
-         <number>6</number>
-        </property>
-        <item>
+     <layout class="QGridLayout" name="gridLayout_5">
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="gridLayout_6">
+        <item row="1" column="2">
+         <widget class="QLineEdit" name="lineEdit_params">
+          <property name="placeholderText">
+           <string>type your debug ffmpeg params</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_8">
+          <property name="text">
+           <string>Test File</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
          <widget class="QLabel" name="label_3">
           <property name="text">
            <string>FFmpeg Path:</string>
           </property>
+          <property name="buddy">
+           <cstring>pathFfmpeg</cstring>
+          </property>
          </widget>
         </item>
-        <item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>Parameter</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
          <widget class="QLineEdit" name="pathFfmpeg">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -52,16 +73,30 @@
           </property>
          </widget>
         </item>
-        <item>
+        <item row="0" column="3">
          <widget class="QPushButton" name="browseFfmpeg">
           <property name="text">
            <string>Browse</string>
           </property>
          </widget>
         </item>
+        <item row="2" column="2">
+         <widget class="QLineEdit" name="lineEdit_testFile">
+          <property name="text">
+           <string>&quot;C:\Users\info\Desktop\ffmpeg test\200828 BCL Video V1.mp4&quot;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="text">
+           <string>Load File</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
-      <item>
+      <item row="0" column="1">
        <widget class="QLabel" name="dsaLogo">
         <property name="maximumSize">
          <size>
@@ -239,11 +274,7 @@
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="0" column="0">
-           <widget class="QLabel" name="label_debug">
-            <property name="text">
-             <string>Hello World!</string>
-            </property>
-           </widget>
+           <widget class="QTextEdit" name="label_debug"/>
           </item>
          </layout>
         </item>
