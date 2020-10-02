@@ -29,8 +29,7 @@ TRANSLATIONS += \
     DSA-Multitool-GUI_en_US.ts
 
 RESOURCES += \
-    rsc.qrc \
-    test.qrc
+    rsc.qrc
 
 TARGET = "DSA Multitool"
 
