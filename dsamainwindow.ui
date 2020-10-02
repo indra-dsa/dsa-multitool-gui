@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>845</width>
-    <height>542</height>
+    <height>616</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -29,20 +29,10 @@
      <layout class="QGridLayout" name="gridLayout_5">
       <item row="0" column="0">
        <layout class="QGridLayout" name="gridLayout_6">
-        <item row="1" column="2">
-         <widget class="QLineEdit" name="lineEdit_params">
+        <item row="0" column="3">
+         <widget class="QPushButton" name="browseFfmpeg">
           <property name="text">
-           <string>-i &quot;C:\Users\info\Desktop\ffmpeg test\01 Force To Mono H264 MASTER.mov&quot; -bf 0 -g 1 &quot;C:\Users\info\Desktop\ffmpeg test\01 Force To Mono H264 MASTER-N.mov&quot;</string>
-          </property>
-          <property name="placeholderText">
-           <string>type your debug ffmpeg params</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_8">
-          <property name="text">
-           <string>Test File</string>
+           <string>Browse</string>
           </property>
          </widget>
         </item>
@@ -53,13 +43,6 @@
           </property>
           <property name="buddy">
            <cstring>pathFfmpeg</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_7">
-          <property name="text">
-           <string>Parameter</string>
           </property>
          </widget>
         </item>
@@ -76,38 +59,14 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="3">
-         <widget class="QPushButton" name="browseFfmpeg">
-          <property name="text">
-           <string>Browse</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLineEdit" name="lineEdit_testFile">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="placeholderText">
-           <string>test file location</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="3">
-         <widget class="QPushButton" name="pushButton_2">
-          <property name="text">
-           <string>Load File</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
       <item row="0" column="1">
        <widget class="QLabel" name="dsaLogo">
         <property name="maximumSize">
          <size>
-          <width>200</width>
-          <height>100</height>
+          <width>202</width>
+          <height>121</height>
          </size>
         </property>
         <property name="autoFillBackground">
@@ -117,7 +76,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="../DSA-Multitool-GUI/rsc.qrc">:/resources/images/Logo-Black.png</pixmap>
+         <pixmap resource="../DSA-Multitool-GUI/rsc.qrc">:/resources/images/Logo-White.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -129,7 +88,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>4</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <property name="enabled">
@@ -141,6 +100,9 @@
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout">
+          <property name="horizontalSpacing">
+           <number>-1</number>
+          </property>
           <item row="0" column="1">
            <widget class="QLabel" name="label_2">
             <property name="text">
@@ -175,6 +137,19 @@
         </item>
         <item row="0" column="1">
          <layout class="QVBoxLayout" name="verticalLayout_4">
+          <property name="spacing">
+           <number>-1</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>Preset:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_3"/>
+          </item>
           <item>
            <widget class="QCheckBox" name="checkBox">
             <property name="text">
@@ -183,32 +158,18 @@
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <widget class="QComboBox" name="comboBox_4">
             <item>
-             <widget class="QLabel" name="label_6">
-              <property name="text">
-               <string>Width</string>
-              </property>
-             </widget>
+             <property name="text">
+              <string>1080p</string>
+             </property>
             </item>
             <item>
-             <widget class="QLabel" name="label_5">
-              <property name="text">
-               <string>Height</string>
-              </property>
-             </widget>
+             <property name="text">
+              <string>720p</string>
+             </property>
             </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_3">
-            <item>
-             <widget class="QLineEdit" name="lineEdit_2"/>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit"/>
-            </item>
-           </layout>
+           </widget>
           </item>
           <item>
            <widget class="QLabel" name="label">
@@ -249,9 +210,76 @@
           <item>
            <widget class="QPushButton" name="pushButton">
             <property name="text">
-             <string>Convert</string>
+             <string>Add to Job Queue</string>
             </property>
            </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="3">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>50</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_2">
+            <property name="text">
+             <string>Trim Video</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="gridLayout_7">
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="lineEdit_2"/>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>Trim Start (frames)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>Trim End (frames)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLineEdit" name="lineEdit"/>
+            </item>
+            <item row="3" column="1">
+             <spacer name="verticalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>50</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>

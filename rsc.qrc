@@ -4,5 +4,7 @@
         <file>resources/images/Icon-White.png</file>
         <file>resources/images/Logo-Black.png</file>
         <file>resources/images/Logo-White.png</file>
+        <file>resources/images/Flat-Logo-White.png</file>
+        <file>resources/images/Flat-Logo-Black.png</file>
     </qresource>
 </RCC>

@@ -9,20 +9,28 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    aboutdialog.cpp \
+    fitem.cpp \
+    fworker.cpp \
     main.cpp \
     dsamainwindow.cpp
 
 HEADERS += \
-    dsamainwindow.h
+    aboutdialog.h \
+    dsamainwindow.h \
+    fitem.h \
+    fworker.h
 
 FORMS += \
+    aboutdialog.ui \
     dsamainwindow.ui
 
 TRANSLATIONS += \
     DSA-Multitool-GUI_en_US.ts
 
 RESOURCES += \
-    rsc.qrc
+    rsc.qrc \
+    test.qrc
 
 TARGET = "DSA Multitool"
 

@@ -1,5 +1,9 @@
 #include "dsamainwindow.h"
 #include "ui_dsamainwindow.h"
+
+#include "fworker.h"
+#include "aboutdialog.h"
+
 #include <QMessageBox>
 #include <QFileDialog>
 
@@ -14,8 +18,6 @@ DSAMainWindow::DSAMainWindow(QWidget *parent)
     ui->statusbar->showMessage("Ready.");
 
     // initialize values for QSettings
-
-
     QSettings settings;
     getSettings();
 
@@ -33,8 +35,8 @@ void DSAMainWindow::on_actionQuit_triggered()
 
 void DSAMainWindow::on_actionAbout_triggered()
 {
-    QMessageBox aboutMessage;
-    aboutMessage.information(this,"About","Double Shot Audio Multitool V0.1 (Alpha)\nProgrammed by Made Indrayana using Qt 5");
+    AboutDialog a;
+    a.exec();
 }
 
 // Main Functions ------------------------------------------------------------------------------------
@@ -48,7 +50,7 @@ void DSAMainWindow::getSettings()
     }
     else
     {
-        return;
+        QMessageBox::information(this,"FFmpeg not found!", "FFmpeg path not set, please set!");
     }
 }
 
@@ -65,36 +67,7 @@ void DSAMainWindow::on_browseFfmpeg_clicked()
 
 void DSAMainWindow::on_actionffmpeg_start_triggered()
 {
-    QString file = ui->pathFfmpeg->text();
-
-    QStringList params;
-    QProcess p;
-
-    p.setProcessChannelMode(QProcess::MergedChannels);
-
-#ifdef Q_OS_OSX
-    params << "-i";
-    params << ui->lineEdit_testFile->text();
-#endif
-
-#ifdef Q_OS_WIN
-    p.setNativeArguments(ui->lineEdit_params->text()); // VERY IMPORTANT FOR WINDOWS!!!!!
-#endif
-
-    p.start(file,params);
-
-    QString output;
-    if (p.waitForStarted(-1))
-    {
-        while(p.waitForReadyRead(-1))
-        {
-            output += p.readAll();
-            ui->label_debug->setText(output);
-        }
-    }
-
-    p.waitForFinished();
-
+    qDebug() << "hi ffmpeg is triggered";
 }
 
 void DSAMainWindow::on_pathFfmpeg_textChanged(const QString &arg1)
@@ -107,13 +80,4 @@ void DSAMainWindow::on_pathFfmpeg_textChanged(const QString &arg1)
 void DSAMainWindow::on_actionQSettings_status_triggered()
 {
     qInfo() << settings.status();
-}
-
-void DSAMainWindow::on_pushButton_2_clicked()
-{
-    QString fileName = nullptr;
-
-    fileName = QFileDialog::getOpenFileName(this,
-        tr("Open Video File"), QDir::homePath());
-    ui->lineEdit_testFile->setText(fileName);
 }
