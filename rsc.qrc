@@ -6,5 +6,7 @@
         <file>resources/images/Logo-White.png</file>
         <file>resources/images/Flat-Logo-White.png</file>
         <file>resources/images/Flat-Logo-Black.png</file>
+        <file>resources/icons/Icon-Black-macOS.icns</file>
+        <file>resources/icons/Icon-Black-Win.ico</file>
     </qresource>
 </RCC>

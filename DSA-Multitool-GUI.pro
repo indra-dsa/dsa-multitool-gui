@@ -40,3 +40,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RC_ICONS = Icon-Black-Win.ico
 ICON = Icon-Black-macOS.icns
+
+DISTFILES += \
+    Icon-Black-Win.ico \
+    Icon-Black-macOS.icns
