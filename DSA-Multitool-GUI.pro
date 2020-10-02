@@ -13,13 +13,15 @@ SOURCES += \
     fitem.cpp \
     fworker.cpp \
     main.cpp \
-    dsamainwindow.cpp
+    dsamainwindow.cpp \
+    myclass.cpp
 
 HEADERS += \
     aboutdialog.h \
     dsamainwindow.h \
     fitem.h \
-    fworker.h
+    fworker.h \
+    myclass.h
 
 FORMS += \
     aboutdialog.ui \
