@@ -21,6 +21,8 @@ public:
     QProcess p;
 
 private slots:
+    void errorString(QString);
+    void printToConsole(QString);
     void on_actionQuit_triggered();
     void on_actionAbout_triggered();
     void on_browseFfmpeg_clicked();

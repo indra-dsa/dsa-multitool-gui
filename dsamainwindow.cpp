@@ -67,7 +67,16 @@ void DSAMainWindow::on_browseFfmpeg_clicked()
 
 void DSAMainWindow::on_actionffmpeg_start_triggered()
 {
-    qDebug() << "hi ffmpeg is triggered";
+    QThread* thread = new QThread;
+    fWorker* fWorker = new class fWorker();
+    fWorker->moveToThread(thread);
+    connect(fWorker, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
+    connect(thread, SIGNAL(started()), fWorker, SLOT(process()));
+    connect(fWorker, SIGNAL(outputAvailable(QString)), this, SLOT(printToConsole(QString)));
+    connect(fWorker, SIGNAL(finished()), thread, SLOT(quit()));
+    connect(fWorker, SIGNAL(finished()), fWorker, SLOT(deleteLater()));
+    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+    thread->start();
 }
 
 void DSAMainWindow::on_pathFfmpeg_textChanged(const QString &arg1)
@@ -80,4 +89,15 @@ void DSAMainWindow::on_pathFfmpeg_textChanged(const QString &arg1)
 void DSAMainWindow::on_actionQSettings_status_triggered()
 {
     qInfo() << settings.status();
+}
+
+void DSAMainWindow::errorString(QString err)
+{
+    qDebug() << err;
+}
+
+void DSAMainWindow::printToConsole(QString output)
+{
+    ui->label_debug->setText(output);
+    ui->label_debug->ensureCursorVisible();
 }

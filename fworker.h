@@ -7,13 +7,17 @@
 class fWorker : public QObject
 {
     Q_OBJECT
+
 public:
-    explicit fWorker(QObject *parent = nullptr);
+    fWorker();
+    ~fWorker();
     void getFfmpeg();
+    QString output;
 
 signals:
     void finished();
     void error(QString err);
+    void outputAvailable(QString output);
 
 public slots:
     void process();

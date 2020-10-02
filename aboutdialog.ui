@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>About</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0">
@@ -45,7 +45,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="../DSA-Multitool-GUI/rsc.qrc">:/resources/images/Flat-Logo-White.png</pixmap>
+        <pixmap>:/resources/images/Flat-Logo-White.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -85,9 +85,7 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../DSA-Multitool-GUI/rsc.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>buttonBox</sender>

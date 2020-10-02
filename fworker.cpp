@@ -1,10 +1,21 @@
 #include "fworker.h"
 #include <QProcess>
+#include <QSettings>
 
-fWorker::fWorker(QObject *parent) : QObject(parent)
+fWorker::fWorker()
 {
-    QString filePath = ui->pathFfmpeg->text();
+    fItem item;
+}
 
+fWorker::~fWorker()
+{
+
+}
+
+void fWorker::process()
+{
+    QSettings settings;
+    QString filePath = settings.value("ffmpegPath").toString();
     QStringList params;
     QProcess p;
 
@@ -16,21 +27,25 @@ fWorker::fWorker(QObject *parent) : QObject(parent)
 #endif
 
 #ifdef Q_OS_WIN
-    //p.setNativeArguments(ui->lineEdit_params->text()); // VERY IMPORTANT FOR WINDOWS!!!!!
+    p.setNativeArguments("-i \"C:\\Users\\info\\Desktop\\ffmpeg test\\200828 BCL Video V1.mp4\" -bf 0 -g 1 \"C:\\Users\\info\\Desktop\\ffmpeg test\\200828 BCL Video V1-N.mp4\""); // VERY IMPORTANT FOR WINDOWS!!!!!
 #endif
 
-    //p.start(file,params);
+    p.start(filePath,params);
 
-    QString output;
     if (p.waitForStarted(-1))
     {
         while(p.waitForReadyRead(-1))
         {
             output += p.readAll();
-      //      ui->label_debug->setText(output);
+            emit outputAvailable(output);
         }
     }
 
     p.waitForFinished();
+
+}
+
+void fWorker::getFfmpeg()
+{
 
 }
