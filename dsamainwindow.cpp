@@ -56,7 +56,7 @@ void DSAMainWindow::getSettings()
 
 void DSAMainWindow::on_browseFfmpeg_clicked()
 {
-    QString fileName = nullptr;
+    QString fileName;
 
     fileName = QFileDialog::getOpenFileName(this,
         tr("Locate FFmpeg Binary Build"), QDir::homePath());
