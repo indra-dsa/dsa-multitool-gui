@@ -12,6 +12,7 @@ public:
     fWorker();
     ~fWorker();
     void getFfmpeg();
+    QStringList params;
     QString output;
 
 signals:

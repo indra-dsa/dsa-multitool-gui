@@ -5,6 +5,8 @@
 fWorker::fWorker()
 {
     fItem item;
+    QStringList params;
+
 }
 
 fWorker::~fWorker()
@@ -16,15 +18,9 @@ void fWorker::process()
 {
     QSettings settings;
     QString filePath = settings.value("ffmpegPath").toString();
-    QStringList params;
     QProcess p;
 
     p.setProcessChannelMode(QProcess::MergedChannels);
-
-#ifdef Q_OS_OSX
-    //params << "-i";
-    //params << ui->lineEdit_testFile->text();
-#endif
 
 #ifdef Q_OS_WIN
     p.setNativeArguments("-i \"C:\\Users\\info\\Desktop\\ffmpeg test\\200828 BCL Video V1.mp4\" -bf 0 -g 1 \"C:\\Users\\info\\Desktop\\ffmpeg test\\200828 BCL Video V1-N.mp4\""); // VERY IMPORTANT FOR WINDOWS!!!!!

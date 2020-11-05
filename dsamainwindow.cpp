@@ -110,3 +110,36 @@ void DSAMainWindow::printToConsole(QString output)
     ui->label_debug->append(output);
     ui->label_debug->ensureCursorVisible();
 }
+
+void DSAMainWindow::on_browseFile_clicked()
+{
+    QString fileName;
+
+    fileName = QFileDialog::getOpenFileName(this,
+        tr("Locate File to convert"), QDir::homePath());
+
+    //Null & Empty Check for FileName
+    if(fileName.isNull() || fileName.isEmpty())
+    {
+        return;
+    }
+    else
+    {
+        ui->pathFile->setText(fileName);
+    }
+}
+
+void DSAMainWindow::on_actionffmpeg_with_file_triggered()
+{
+    QThread* thread = new QThread;
+    fWorker* fWorker = new class fWorker();
+    fWorker->moveToThread(thread);
+    connect(fWorker, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
+    connect(thread, SIGNAL(started()), fWorker, SLOT(process()));
+    connect(fWorker, SIGNAL(outputAvailable(QString)), this, SLOT(printToConsole(QString)));
+    connect(fWorker, SIGNAL(finished()), thread, SLOT(quit()));
+    connect(fWorker, SIGNAL(finished()), fWorker, SLOT(deleteLater()));
+    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+    fWorker->params.append("-i");
+    thread->start();
+}
