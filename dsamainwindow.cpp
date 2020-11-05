@@ -60,9 +60,18 @@ void DSAMainWindow::on_browseFfmpeg_clicked()
 
     fileName = QFileDialog::getOpenFileName(this,
         tr("Locate FFmpeg Binary Build"), QDir::homePath());
-    ui->pathFfmpeg->setText(fileName);
-    settings.setValue("ffmpegPath", fileName);
-    settings.sync();
+
+    //Null & Empty Check for FileName
+    if(fileName.isNull() || fileName.isEmpty())
+    {
+        return;
+    }
+    else
+    {
+        ui->pathFfmpeg->setText(fileName);
+        settings.setValue("ffmpegPath", fileName);
+        settings.sync();
+    }
 }
 
 void DSAMainWindow::on_actionffmpeg_start_triggered()
@@ -98,6 +107,6 @@ void DSAMainWindow::errorString(QString err)
 
 void DSAMainWindow::printToConsole(QString output)
 {
-    ui->label_debug->setText(output);
+    ui->label_debug->append(output);
     ui->label_debug->ensureCursorVisible();
 }
