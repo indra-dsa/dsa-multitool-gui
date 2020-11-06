@@ -12,3 +12,9 @@ ConsoleOutput::~ConsoleOutput()
 {
     delete ui;
 }
+
+void ConsoleOutput::printToConsole (QString output)
+{
+    ui->debugLabel->appendPlainText(output);
+    ui->debugLabel->ensureCursorVisible();
+}

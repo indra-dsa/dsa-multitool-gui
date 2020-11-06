@@ -48,6 +48,11 @@ void DSAMainWindow::on_actionShow_Console_Output_triggered()
     c->show();
 }
 
+void DSAMainWindow::on_actionQSettings_status_triggered()
+{
+    qInfo() << settings.status();
+}
+
 // Main Functions ------------------------------------------------------------------------------------
 
 void DSAMainWindow::getSettings()
@@ -83,20 +88,6 @@ void DSAMainWindow::on_browseFfmpeg_clicked()
     }
 }
 
-void DSAMainWindow::on_actionffmpeg_start_triggered()
-{
-    QThread* thread = new QThread;
-    fWorker* fWorker = new class fWorker();
-    fWorker->moveToThread(thread);
-    connect(fWorker, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
-    connect(thread, SIGNAL(started()), fWorker, SLOT(process()));
-    connect(fWorker, SIGNAL(outputAvailable(QString)), this, SLOT(printToConsole(QString)));
-    connect(fWorker, SIGNAL(finished()), thread, SLOT(quit()));
-    connect(fWorker, SIGNAL(finished()), fWorker, SLOT(deleteLater()));
-    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-    thread->start();
-}
-
 void DSAMainWindow::on_pathFfmpeg_textChanged(const QString &arg1)
 {
     settings.setValue("ffmpegPath", arg1);
@@ -104,10 +95,22 @@ void DSAMainWindow::on_pathFfmpeg_textChanged(const QString &arg1)
     qInfo() << "Updated path to: " << settings.value("ffmpegPath").toString();
 }
 
-void DSAMainWindow::on_actionQSettings_status_triggered()
+void DSAMainWindow::on_actionffmpeg_start_triggered()
 {
-    qInfo() << settings.status();
+    QThread* thread = new QThread;
+    fWorker* fWorker = new class fWorker();
+    fWorker->moveToThread(thread);
+    connect(fWorker, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
+    connect(thread, SIGNAL(started()), fWorker, SLOT(process()));
+    connect(fWorker, SIGNAL(outputAvailable(QString)), c, SLOT(printToConsole(QString)));
+    connect(fWorker, SIGNAL(finished()), thread, SLOT(quit()));
+    connect(fWorker, SIGNAL(finished()), fWorker, SLOT(deleteLater()));
+    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+    thread->start();
 }
+
+
+
 
 void DSAMainWindow::errorString(QString err)
 {
@@ -116,8 +119,7 @@ void DSAMainWindow::errorString(QString err)
 
 void DSAMainWindow::printToConsole(QString output)
 {
-    //ui->label_debug->append(output);
-    //ui->label_debug->ensureCursorVisible();
+
 }
 
 void DSAMainWindow::on_browseFile_clicked()
@@ -140,16 +142,27 @@ void DSAMainWindow::on_browseFile_clicked()
 
 void DSAMainWindow::on_actionffmpeg_with_file_triggered()
 {
+    QString endFileName = ui->pathFile->text();
+    endFileName.insert(endFileName.length()-4,"test");
+
     QThread* thread = new QThread;
     fWorker* fWorker = new class fWorker();
     fWorker->moveToThread(thread);
     connect(fWorker, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
     connect(thread, SIGNAL(started()), fWorker, SLOT(process()));
-    connect(fWorker, SIGNAL(outputAvailable(QString)), this, SLOT(printToConsole(QString)));
+    connect(fWorker, SIGNAL(outputAvailable(QString)), c, SLOT(printToConsole(QString)));
     connect(fWorker, SIGNAL(finished()), thread, SLOT(quit()));
     connect(fWorker, SIGNAL(finished()), fWorker, SLOT(deleteLater()));
     connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+
     fWorker->params.append("-i");
+    fWorker->params.append(ui->pathFile->text());
+    fWorker->params.append("-bf");
+    fWorker->params.append("0");
+    fWorker->params.append("-g");
+    fWorker->params.append("1");
+    fWorker->params.append(endFileName);
+
     thread->start();
 }
 

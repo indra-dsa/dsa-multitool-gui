@@ -17,6 +17,9 @@ public:
 
 private:
     Ui::ConsoleOutput *ui;
+
+public slots:
+    void printToConsole(QString);
 };
 
 #endif // CONSOLEOUTPUT_H
