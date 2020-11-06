@@ -348,6 +348,7 @@
     </property>
     <addaction name="actionffmpeg_start"/>
     <addaction name="actionffmpeg_with_file"/>
+    <addaction name="actionffmpeg_with_filelist"/>
     <addaction name="actionQSettings_status"/>
     <addaction name="actionShow_Console_Output"/>
    </widget>
@@ -386,6 +387,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+1</string>
+   </property>
+  </action>
+  <action name="actionffmpeg_with_filelist">
+   <property name="text">
+    <string>ffmpeg with filelist</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+2</string>
    </property>
   </action>
  </widget>

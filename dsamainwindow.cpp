@@ -117,11 +117,6 @@ void DSAMainWindow::errorString(QString err)
     qDebug() << err;
 }
 
-void DSAMainWindow::printToConsole(QString output)
-{
-
-}
-
 void DSAMainWindow::on_browseFile_clicked()
 {
     QString fileName;
@@ -142,6 +137,7 @@ void DSAMainWindow::on_browseFile_clicked()
 
 void DSAMainWindow::on_actionffmpeg_with_file_triggered()
 {
+
     QString endFileName = ui->pathFile->text();
     endFileName.insert(endFileName.length()-4,"test");
 
@@ -155,6 +151,7 @@ void DSAMainWindow::on_actionffmpeg_with_file_triggered()
     connect(fWorker, SIGNAL(finished()), fWorker, SLOT(deleteLater()));
     connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 
+    // HARD CODED PARAMS with Frame Scrubber Enabler
     fWorker->params.append("-i");
     fWorker->params.append(ui->pathFile->text());
     fWorker->params.append("-bf");
@@ -168,7 +165,55 @@ void DSAMainWindow::on_actionffmpeg_with_file_triggered()
 
 void DSAMainWindow::on_addItem_clicked()
 {
+    QStringList fileNames;
 
+    fileNames = QFileDialog::getOpenFileNames(this,
+        tr("Locate File to convert"), QDir::homePath());
+
+    //Null & Empty Check for FileName
+    if(fileNames.isEmpty())
+    {
+        return;
+    }
+    else
+    {
+        ui->pathFileList->addItems(fileNames);
+    }
 }
 
 
+
+void DSAMainWindow::on_actionffmpeg_with_filelist_triggered()
+{
+    for (int row = 0; row < ui->pathFileList->count(); row++)
+    {
+        QListWidgetItem *item = ui->pathFileList->item(row);
+        QString fileName = item->text();
+        QString endFileName = item->text();
+        endFileName.insert(endFileName.length()-4,"-test");
+        //qDebug() << endFileName;
+
+        QThread* thread = new QThread;
+        fWorker* fWorker = new class fWorker();
+        fWorker->moveToThread(thread);
+        connect(fWorker, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
+        connect(thread, SIGNAL(started()), fWorker, SLOT(process()));
+        connect(fWorker, SIGNAL(outputAvailable(QString)), c, SLOT(printToConsole(QString)));
+        connect(fWorker, SIGNAL(finished()), thread, SLOT(quit()));
+        connect(fWorker, SIGNAL(finished()), fWorker, SLOT(deleteLater()));
+        connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+
+        // HARD CODED PARAMS with Frame Scrubber Enabler
+        fWorker->params.append("-i");
+        fWorker->params.append(fileName);
+        fWorker->params.append("-bf");
+        fWorker->params.append("0");
+        fWorker->params.append("-g");
+        fWorker->params.append("1");
+        fWorker->params.append(endFileName);
+
+        thread->start();
+    }
+
+
+}
