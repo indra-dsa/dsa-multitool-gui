@@ -3,6 +3,7 @@
 
 #include "fworker.h"
 #include "aboutdialog.h"
+#include "consoleoutput.h"
 
 #include <QMessageBox>
 #include <QFileDialog>
@@ -21,11 +22,15 @@ DSAMainWindow::DSAMainWindow(QWidget *parent)
     QSettings settings;
     getSettings();
 
+    a = new AboutDialog();
+    c = new ConsoleOutput();
 }
 
 DSAMainWindow::~DSAMainWindow()
 {
     delete ui;
+    delete a;
+    delete c;
 }
 
 void DSAMainWindow::on_actionQuit_triggered()
@@ -35,8 +40,12 @@ void DSAMainWindow::on_actionQuit_triggered()
 
 void DSAMainWindow::on_actionAbout_triggered()
 {
-    AboutDialog a;
-    a.exec();
+    a->show();
+}
+
+void DSAMainWindow::on_actionShow_Console_Output_triggered()
+{
+    c->show();
 }
 
 // Main Functions ------------------------------------------------------------------------------------
@@ -107,8 +116,8 @@ void DSAMainWindow::errorString(QString err)
 
 void DSAMainWindow::printToConsole(QString output)
 {
-    ui->label_debug->append(output);
-    ui->label_debug->ensureCursorVisible();
+    //ui->label_debug->append(output);
+    //ui->label_debug->ensureCursorVisible();
 }
 
 void DSAMainWindow::on_browseFile_clicked()
@@ -143,3 +152,10 @@ void DSAMainWindow::on_actionffmpeg_with_file_triggered()
     fWorker->params.append("-i");
     thread->start();
 }
+
+void DSAMainWindow::on_addItem_clicked()
+{
+
+}
+
+

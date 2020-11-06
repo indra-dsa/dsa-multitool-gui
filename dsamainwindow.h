@@ -3,6 +3,8 @@
 
 #include <QtCore/QtCore>
 #include <QMainWindow>
+#include "consoleoutput.h"
+#include "aboutdialog.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -34,7 +36,12 @@ private slots:
 
     void on_actionffmpeg_with_file_triggered();
 
+    void on_addItem_clicked();
+    void on_actionShow_Console_Output_triggered();
+
 private:
     Ui::DSAMainWindow *ui;
+    ConsoleOutput *c;
+    AboutDialog *a;
 };
 #endif // DSAMAINWINDOW_H
