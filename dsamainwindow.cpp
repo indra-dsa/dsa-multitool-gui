@@ -50,7 +50,7 @@ void DSAMainWindow::on_actionQSettings_status_triggered()
 
 void DSAMainWindow::getSettings()
 {
-    if(settings.value("ffmpegPath").toString() != nullptr)
+    if(!settings.value("ffmpegPath").toString().isEmpty() || !settings.value("ffmpegPath").toString().isNull())
     {
         ui->pathFfmpeg->setText(settings.value("ffmpegPath").toString());
 
@@ -90,7 +90,7 @@ void DSAMainWindow::on_pathFfmpeg_textChanged(const QString &arg1)
 
 void DSAMainWindow::on_actionffmpeg_start_triggered()
 {
-    ConsoleOutput *cOutput = new ConsoleOutput;
+    ConsoleOutput *cOutput = new ConsoleOutput(this);
     QThread* thread = new QThread;
     fWorker* fWorker = new class fWorker();
     fWorker->moveToThread(thread);
@@ -136,7 +136,6 @@ void DSAMainWindow::on_actionffmpeg_with_filelist_triggered()
 {
     for (int row = 0; row < ui->pathFileList->count(); row++)
     {
-        ConsoleOutput *cOutput = new ConsoleOutput;
 
         QListWidgetItem *item = ui->pathFileList->item(row);
         QString fileName = item->text();
@@ -146,6 +145,7 @@ void DSAMainWindow::on_actionffmpeg_with_filelist_triggered()
 
         QThread* thread = new QThread;
         fWorker* fWorker = new class fWorker();
+        ConsoleOutput *cOutput = new ConsoleOutput(this);
         fWorker->moveToThread(thread);
         connect(fWorker, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
         connect(thread, SIGNAL(started()), fWorker, SLOT(process()));
