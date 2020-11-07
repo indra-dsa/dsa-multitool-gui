@@ -8,7 +8,9 @@ public:
     fItem();
 private:
     QString path;
-    bool resize;
+    bool vResize;
+    bool vTrim;
+
 
 };
 

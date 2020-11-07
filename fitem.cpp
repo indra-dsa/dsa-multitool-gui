@@ -2,6 +2,6 @@
 
 fItem::fItem()
 {
-    QString path = nullptr;
-    bool resize = false;
+    QString path;
+    bool vResize = false;
 }
