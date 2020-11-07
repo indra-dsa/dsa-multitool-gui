@@ -15,6 +15,7 @@ ConsoleOutput::~ConsoleOutput()
 
 void ConsoleOutput::printToConsole (QString output)
 {
+    ui->debugLabel->clear();
     ui->debugLabel->appendPlainText(output);
     ui->debugLabel->ensureCursorVisible();
 }
