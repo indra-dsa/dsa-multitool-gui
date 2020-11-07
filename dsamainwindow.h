@@ -30,16 +30,11 @@ private slots:
     void on_actionffmpeg_start_triggered();
     void on_pathFfmpeg_textChanged(const QString &arg1);
     void on_actionQSettings_status_triggered();
-    void on_browseFile_clicked();
-    void on_actionffmpeg_with_file_triggered();
     void on_addItem_clicked();
-    void on_actionShow_Console_Output_triggered();
-
     void on_actionffmpeg_with_filelist_triggered();
 
 private:
     Ui::DSAMainWindow *ui;
-    ConsoleOutput *c;
     AboutDialog *a;
 };
 #endif // DSAMAINWINDOW_H

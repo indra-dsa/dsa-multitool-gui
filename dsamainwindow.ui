@@ -39,13 +39,6 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="3">
-         <widget class="QPushButton" name="browseFfmpeg">
-          <property name="text">
-           <string>Browse</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="2">
          <widget class="QLineEdit" name="pathFfmpeg">
           <property name="sizePolicy">
@@ -59,22 +52,8 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_8">
-          <property name="text">
-           <string>File to Convert</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLineEdit" name="pathFile">
-          <property name="placeholderText">
-           <string>click &quot;Browse&quot; to choose file to convert...</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="QPushButton" name="browseFile">
+        <item row="0" column="3">
+         <widget class="QPushButton" name="browseFfmpeg">
           <property name="text">
            <string>Browse</string>
           </property>
@@ -107,21 +86,38 @@
      </layout>
     </item>
     <item>
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>Files to convert:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QListWidget" name="pathFileList"/>
-    </item>
-    <item>
-     <widget class="QPushButton" name="addItem">
-      <property name="text">
-       <string>Add Videos</string>
-      </property>
-     </widget>
+     <layout class="QGridLayout" name="gridLayout_8">
+      <item row="2" column="0">
+       <widget class="QPushButton" name="addItem">
+        <property name="text">
+         <string>Add Videos</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QListWidget" name="pathFileList"/>
+      </item>
+      <item row="1" column="1">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Files to convert:</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <widget class="QTabWidget" name="tabWidget">
@@ -347,10 +343,8 @@
      <string>Debug</string>
     </property>
     <addaction name="actionffmpeg_start"/>
-    <addaction name="actionffmpeg_with_file"/>
     <addaction name="actionffmpeg_with_filelist"/>
     <addaction name="actionQSettings_status"/>
-    <addaction name="actionShow_Console_Output"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuDebug"/>
@@ -376,25 +370,12 @@
     <string>QSettings status</string>
    </property>
   </action>
-  <action name="actionffmpeg_with_file">
-   <property name="text">
-    <string>ffmpeg with file</string>
-   </property>
-  </action>
-  <action name="actionShow_Console_Output">
-   <property name="text">
-    <string>Show Console Output</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+1</string>
-   </property>
-  </action>
   <action name="actionffmpeg_with_filelist">
    <property name="text">
     <string>ffmpeg with filelist</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+2</string>
+    <string>Ctrl+1</string>
    </property>
   </action>
  </widget>

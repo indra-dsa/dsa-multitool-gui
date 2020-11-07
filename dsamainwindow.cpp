@@ -23,14 +23,12 @@ DSAMainWindow::DSAMainWindow(QWidget *parent)
     getSettings();
 
     a = new AboutDialog();
-    c = new ConsoleOutput();
 }
 
 DSAMainWindow::~DSAMainWindow()
 {
     delete ui;
     delete a;
-    delete c;
 }
 
 void DSAMainWindow::on_actionQuit_triggered()
@@ -41,11 +39,6 @@ void DSAMainWindow::on_actionQuit_triggered()
 void DSAMainWindow::on_actionAbout_triggered()
 {
     a->show();
-}
-
-void DSAMainWindow::on_actionShow_Console_Output_triggered()
-{
-    c->show();
 }
 
 void DSAMainWindow::on_actionQSettings_status_triggered()
@@ -97,15 +90,17 @@ void DSAMainWindow::on_pathFfmpeg_textChanged(const QString &arg1)
 
 void DSAMainWindow::on_actionffmpeg_start_triggered()
 {
+    ConsoleOutput *cOutput = new ConsoleOutput;
     QThread* thread = new QThread;
     fWorker* fWorker = new class fWorker();
     fWorker->moveToThread(thread);
     connect(fWorker, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
     connect(thread, SIGNAL(started()), fWorker, SLOT(process()));
-    connect(fWorker, SIGNAL(outputAvailable(QString)), c, SLOT(printToConsole(QString)));
+    connect(fWorker, SIGNAL(outputAvailable(QString)), cOutput, SLOT(printToConsole(QString)));
     connect(fWorker, SIGNAL(finished()), thread, SLOT(quit()));
     connect(fWorker, SIGNAL(finished()), fWorker, SLOT(deleteLater()));
     connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+    cOutput->show();
     thread->start();
 }
 
@@ -115,52 +110,6 @@ void DSAMainWindow::on_actionffmpeg_start_triggered()
 void DSAMainWindow::errorString(QString err)
 {
     qDebug() << err;
-}
-
-void DSAMainWindow::on_browseFile_clicked()
-{
-    QString fileName;
-
-    fileName = QFileDialog::getOpenFileName(this,
-        tr("Locate File to convert"), QDir::homePath());
-
-    //Null & Empty Check for FileName
-    if(fileName.isNull() || fileName.isEmpty())
-    {
-        return;
-    }
-    else
-    {
-        ui->pathFile->setText(fileName);
-    }
-}
-
-void DSAMainWindow::on_actionffmpeg_with_file_triggered()
-{
-
-    QString endFileName = ui->pathFile->text();
-    endFileName.insert(endFileName.length()-4,"test");
-
-    QThread* thread = new QThread;
-    fWorker* fWorker = new class fWorker();
-    fWorker->moveToThread(thread);
-    connect(fWorker, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
-    connect(thread, SIGNAL(started()), fWorker, SLOT(process()));
-    connect(fWorker, SIGNAL(outputAvailable(QString)), c, SLOT(printToConsole(QString)));
-    connect(fWorker, SIGNAL(finished()), thread, SLOT(quit()));
-    connect(fWorker, SIGNAL(finished()), fWorker, SLOT(deleteLater()));
-    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-
-    // HARD CODED PARAMS with Frame Scrubber Enabler
-    fWorker->params.append("-i");
-    fWorker->params.append(ui->pathFile->text());
-    fWorker->params.append("-bf");
-    fWorker->params.append("0");
-    fWorker->params.append("-g");
-    fWorker->params.append("1");
-    fWorker->params.append(endFileName);
-
-    thread->start();
 }
 
 void DSAMainWindow::on_addItem_clicked()
@@ -187,6 +136,8 @@ void DSAMainWindow::on_actionffmpeg_with_filelist_triggered()
 {
     for (int row = 0; row < ui->pathFileList->count(); row++)
     {
+        ConsoleOutput *cOutput = new ConsoleOutput;
+
         QListWidgetItem *item = ui->pathFileList->item(row);
         QString fileName = item->text();
         QString endFileName = item->text();
@@ -198,7 +149,7 @@ void DSAMainWindow::on_actionffmpeg_with_filelist_triggered()
         fWorker->moveToThread(thread);
         connect(fWorker, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
         connect(thread, SIGNAL(started()), fWorker, SLOT(process()));
-        connect(fWorker, SIGNAL(outputAvailable(QString)), c, SLOT(printToConsole(QString)));
+        connect(fWorker, SIGNAL(outputAvailable(QString)), cOutput, SLOT(printToConsole(QString)));
         connect(fWorker, SIGNAL(finished()), thread, SLOT(quit()));
         connect(fWorker, SIGNAL(finished()), fWorker, SLOT(deleteLater()));
         connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
@@ -211,6 +162,8 @@ void DSAMainWindow::on_actionffmpeg_with_filelist_triggered()
         fWorker->params.append("-g");
         fWorker->params.append("1");
         fWorker->params.append(endFileName);
+
+        cOutput->show();
 
         thread->start();
     }
