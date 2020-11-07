@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include "consoleoutput.h"
 #include "aboutdialog.h"
+#include <QStandardItemModel>
 
 
 QT_BEGIN_NAMESPACE
@@ -18,9 +19,11 @@ class DSAMainWindow : public QMainWindow
 public:
     DSAMainWindow(QWidget *parent = nullptr);
     ~DSAMainWindow();
-    QSettings settings;
+
     void getSettings();
-    QProcess p;
+
+    QSettings settings;
+
 
 private slots:
     void errorString(QString);
@@ -33,8 +36,12 @@ private slots:
     void on_addItem_clicked();
     void on_actionffmpeg_with_filelist_triggered();
 
+    void on_pushButton_2_clicked();
+
 private:
     Ui::DSAMainWindow *ui;
     AboutDialog *a;
+    QStandardItemModel *model;
+
 };
 #endif // DSAMAINWINDOW_H

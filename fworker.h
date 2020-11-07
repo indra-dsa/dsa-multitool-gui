@@ -1,7 +1,6 @@
 #ifndef FWORKER_H
 #define FWORKER_H
 
-#include "fitem.h"
 #include <QObject>
 
 class fWorker : public QObject
@@ -22,10 +21,6 @@ signals:
 
 public slots:
     void process();
-
-private:
-    fItem item;
-
 };
 
 #endif // FWORKER_H

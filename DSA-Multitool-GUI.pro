@@ -11,7 +11,6 @@ CONFIG += c++11
 SOURCES += \
     aboutdialog.cpp \
     consoleoutput.cpp \
-    fitem.cpp \
     fworker.cpp \
     main.cpp \
     dsamainwindow.cpp
@@ -20,7 +19,6 @@ HEADERS += \
     aboutdialog.h \
     consoleoutput.h \
     dsamainwindow.h \
-    fitem.h \
     fworker.h
 
 FORMS += \

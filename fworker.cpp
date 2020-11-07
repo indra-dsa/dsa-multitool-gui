@@ -4,7 +4,6 @@
 
 fWorker::fWorker()
 {
-    fItem item;
     QStringList params;
 
 }

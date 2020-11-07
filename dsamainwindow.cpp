@@ -19,10 +19,19 @@ DSAMainWindow::DSAMainWindow(QWidget *parent)
     ui->statusbar->showMessage("Ready.");
 
     // initialize values for QSettings
-    QSettings settings;
     getSettings();
 
     a = new AboutDialog();
+
+    QStringList headerLabels;
+    headerLabels << "File Path" << "Jobs";
+    model = new QStandardItemModel(0,4);
+    model->setHorizontalHeaderLabels(headerLabels);
+    ui->tableView->setModel(model);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView->hideColumn(2);
+    ui->tableView->hideColumn(3);
+
 }
 
 DSAMainWindow::~DSAMainWindow()
@@ -88,25 +97,6 @@ void DSAMainWindow::on_pathFfmpeg_textChanged(const QString &arg1)
     qInfo() << "Updated path to: " << settings.value("ffmpegPath").toString();
 }
 
-void DSAMainWindow::on_actionffmpeg_start_triggered()
-{
-    ConsoleOutput *cOutput = new ConsoleOutput(this);
-    QThread* thread = new QThread;
-    fWorker* fWorker = new class fWorker();
-    fWorker->moveToThread(thread);
-    connect(fWorker, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
-    connect(thread, SIGNAL(started()), fWorker, SLOT(process()));
-    connect(fWorker, SIGNAL(outputAvailable(QString)), cOutput, SLOT(printToConsole(QString)));
-    connect(fWorker, SIGNAL(finished()), thread, SLOT(quit()));
-    connect(fWorker, SIGNAL(finished()), fWorker, SLOT(deleteLater()));
-    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-    cOutput->show();
-    thread->start();
-}
-
-
-
-
 void DSAMainWindow::errorString(QString err)
 {
     qDebug() << err;
@@ -130,16 +120,33 @@ void DSAMainWindow::on_addItem_clicked()
     }
 }
 
-
+void DSAMainWindow::on_actionffmpeg_start_triggered()
+{
+    ConsoleOutput *cOutput = new ConsoleOutput(this);
+    QThread* thread = new QThread;
+    fWorker* fWorker = new class fWorker();
+    fWorker->moveToThread(thread);
+    connect(fWorker, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
+    connect(thread, SIGNAL(started()), fWorker, SLOT(process()));
+    connect(fWorker, SIGNAL(outputAvailable(QString)), cOutput, SLOT(printToConsole(QString)));
+    connect(fWorker, SIGNAL(finished()), thread, SLOT(quit()));
+    connect(fWorker, SIGNAL(finished()), fWorker, SLOT(deleteLater()));
+    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+    cOutput->show();
+    thread->start();
+}
 
 void DSAMainWindow::on_actionffmpeg_with_filelist_triggered()
 {
-    for (int row = 0; row < ui->pathFileList->count(); row++)
+    for (int row = 0; row < model->rowCount(); ++row)
     {
 
-        QListWidgetItem *item = ui->pathFileList->item(row);
-        QString fileName = item->text();
-        QString endFileName = item->text();
+//        QListWidgetItem *item = ui->pathFileList->item(row);
+//        QString fileName = item->text();
+//        QString endFileName = item->text();
+        QString fileName = model->item(row,0)->text();
+        QString endFileName = fileName;
+
         endFileName.insert(endFileName.length()-4,"-test");
         //qDebug() << endFileName;
 
@@ -166,6 +173,33 @@ void DSAMainWindow::on_actionffmpeg_with_filelist_triggered()
         cOutput->show();
 
         thread->start();
+    }
+
+
+}
+
+void DSAMainWindow::on_pushButton_2_clicked()
+{
+    QStringList fileNames;
+
+    fileNames = QFileDialog::getOpenFileNames(this,
+        tr("Locate File to convert"), QDir::homePath());
+
+    //Null & Empty Check for FileName
+    if(fileNames.isEmpty())
+    {
+        return;
+    }
+    else
+    {
+        for (int i = 0; i < fileNames.size(); ++i)
+        {
+            QList<QStandardItem*> data;
+            data.append(new QStandardItem(fileNames.at(i)));
+            data.append(new QStandardItem("1"));
+
+            model->appendRow(data);
+        }
     }
 
 
